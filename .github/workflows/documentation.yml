@@ -1,0 +1,57 @@
+name: documentation
+run-name: Build and deploy documentation
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy-docs:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+      - name: Update System
+        run: sudo apt-get update && sudo apt-get upgrade -y
+        shell: bash
+      - name: Install plantuml
+        run: sudo apt-get install plantuml -y
+        shell: bash
+      - name: Setup Python3
+        uses: actions/setup-python@v4
+        with: 
+          python-version: '^3.10.x'
+      - name: Install Sphinx and selected extensions
+        run: sudo pip install -r ./docs/requirements.txt
+        shell: bash
+      - name: Build documentation with Sphinx
+        run: sphinx-build -b html -v ./docs/ ./_build/
+        shell: bash
+      # The next two steps prepare a separate artifact
+      - name: Compress HTML docs
+        run: tar -czf test-docs.tar.gz ./_build
+      - name: Archive html docs
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-docs
+          path: ${{ github.workspace }}/test-docs.tar.gz
+      # Deploy Github Pages
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: './_build'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1

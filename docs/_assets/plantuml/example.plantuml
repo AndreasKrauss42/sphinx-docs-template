@@ -1,0 +1,13 @@
+@startuml Simplified Deployment Pipeline
+
+[*] --> State1
+State1 : Step 1: Graphs generated
+
+State1 -> State2
+State2 : Sphinx documentation built
+
+State2 -> State3
+State3 : Documentation deployed
+State3 --> [*]
+
+@enduml
