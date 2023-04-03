@@ -19,7 +19,8 @@ extensions = [
     'sphinx_copybutton',
     'sphinxcontrib.plantuml',
     'sphinxcontrib.mermaid',
-    'sphinxemoji.sphinxemoji'
+    'sphinxemoji.sphinxemoji',
+    'sphinx.ext.todo'
 ]
 
 templates_path = ['_templates']
@@ -35,19 +36,23 @@ html_favicon = '_static/icons8-book-32.png'
 
 # Setup 'Edit on Github' links
 html_context = {
-    "display_github": True, # Integrate GitHub
-    "github_user": "AndreasKrauss42", # Username
-    "github_repo": "sphinx-docs-template", # Repo name
-    "github_version": "main", # Version
-    "conf_py_path": "/docs/", # Path in the checkout to the docs root
+    'display_github': True, # Integrate GitHub
+    'github_user': 'AndreasKrauss42', # Username
+    'github_repo': 'sphinx-docs-template', # Repo name
+    'github_version': 'main', # Version
+    'conf_py_path': '/docs/', # Path in the checkout to the docs root
 }
 
 # -- Options for plantUML Support --------------------------------------------
-# if necessary, the path to the plantuml
-# plantuml = 'java -jar /path/to/plantuml.jar'
-
-plantuml_output_format = "svg_img"
+# if you cannot access plantuml via console/terminal, you can reference the jar-file directly
+# plantuml = ['java', '-jar', '.plantuml/plantuml.jar']
+plantuml_output_format = 'svg_img'
 
 # -- Options for mermaid Support ---------------------------------------------
 
 mermaid_params = ['--width', '600', '--backgroundColor', 'transparent']
+
+# -- Options for copybutton --------------------------------------------------
+
+copybutton_prompt_text = r"\$"		# This is a JS regex
+copybutton_prompt_is_regexp = True
