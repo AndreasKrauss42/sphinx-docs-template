@@ -4,7 +4,7 @@ Getting Started
 
 Welcome to our quickstart guide. 
 In this guide, we will setup the required tools and show you how to get started writing technical documentation.
-We designed this quickstart guide, to be read and completed within 30 minutes.
+We designed this quickstart guide to be ready and completed within 30 minutes.
 
 So let's get started.
 
@@ -32,7 +32,7 @@ To check your python version, run following command:
 
 **Windows (PS/Cmd) | Linux (bash | sh)**
 
-.. code-block: bash
+.. code-block:: bash
 
    $ python --version
    Python 3.x.x
@@ -153,7 +153,7 @@ A PlantUML diagramm can be written in the source of this page:
    Alice -> Bob: Good Morning. How are you?
    Alice <- Bob: Hey, I'm fine thanks.
 
-Or can be written in a separate file such as `_assets/plantuml/example.uml`.
+Or can be written in a separate file such as ``_assets/plantuml/example.uml``.
 Please note that the reference is a relative link.
 
 .. uml:: ../_assets/plantuml/example.plantuml

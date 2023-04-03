@@ -17,7 +17,7 @@ The document itself has a **single title** which is marked by using an upper bar
    Title Of The Page
    =================
 
-The rest of the document is splitted into several sections having the same section type as the title:
+The rest of the document is split into several sections having the same section type as the title:
 
 Section
 =======
@@ -27,7 +27,7 @@ Section
    Section
    =======
 
-Sections can be splitted in subsections, such as:
+Sections can be split in subsections, such as:
 
 Subsection
 ----------
@@ -39,7 +39,7 @@ A subsection is created with following code-snippet:
    Subsection
    ----------
 
-And subsections can be splitted in subsubsections:
+And subsections can be split in subsubsections:
 
 Subsubsection
 ^^^^^^^^^^^^^
