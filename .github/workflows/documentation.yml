@@ -1,11 +1,11 @@
 name: documentation
 run-name: Build and deploy documentation
 on:
-  workflow_dispatch:
   push:
     branches:
       - main
-
+      - feat-*
+      
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
@@ -27,6 +27,15 @@ jobs:
       - name: Install plantuml
         run: sudo apt-get install plantuml -y
         shell: bash
+      - name: Install structurizr
+        run: |
+          curl https://github.com/structurizr/cli/releases/latest -o structurizr.zip
+          sudo apt-get install unzip
+          unzip structurizr.zip -d /opt/structurizr
+        shell: bash
+      - name: Generate structurizr views
+        run: /opt/structurizr/structurizr.sh -workspace docs/_assets/structurizr/ -format plantuml
+        shell: bash
       - name: Setup Python3
         uses: actions/setup-python@v4
         with: 
@@ -46,12 +55,12 @@ jobs:
           name: test-docs
           path: ${{ github.workspace }}/test-docs.tar.gz
       # Deploy Github Pages
-      - name: Setup Pages
-        uses: actions/configure-pages@v3
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: './_build'
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v1
+      # - name: Setup Pages
+      #   uses: actions/configure-pages@v3
+      # - name: Upload artifact
+      #   uses: actions/upload-pages-artifact@v1
+      #   with:
+      #     path: './_build'
+      # - name: Deploy to GitHub Pages
+      #   id: deployment
+      #   uses: actions/deploy-pages@v1
