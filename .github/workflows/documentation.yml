@@ -30,6 +30,7 @@ jobs:
       - name: Install structurizr
         run: |
           curl https://github.com/structurizr/cli/releases/latest -o structurizr.zip
+          ls -l
           sudo apt-get install unzip
           unzip structurizr.zip -d /opt/structurizr
         shell: bash
