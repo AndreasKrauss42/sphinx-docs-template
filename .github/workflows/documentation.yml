@@ -38,7 +38,7 @@ jobs:
           STRUCTURIZR_VERSION: 1.30.0
         shell: bash
       - name: Generate structurizr views
-        run: /opt/structurizr/structurizr.sh export -workspace docs/_assets/structurizr/ -format plantuml
+        run: /opt/structurizr/structurizr.sh export -workspace docs/_assets/structurizr/ -format plantuml -output docs/_assets/structurizr/
         shell: bash
       - name: Setup Python3
         uses: actions/setup-python@v4
