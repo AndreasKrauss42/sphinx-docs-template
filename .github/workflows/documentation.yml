@@ -29,15 +29,11 @@ jobs:
         shell: bash
       - name: Install structurizr
         run: |
-          wget https://github.com/structurizr/cli/releases/latest
+          curl -o structurizr.zip https://github.com/structurizr/cli/releases/download/v1.30.0/structurizr-cli-1.30.0.zip
           ls -l
           sudo apt-get install unzip
+          unzip structurizr.zip -d /opt/structurizr
         shell: bash
-      - name: Checkout structurizr-cli
-        uses: actions/upload-artifact@v3
-        with:
-          name: structurizr
-          path: structurizr.zip
       - name: Generate structurizr views
         run: /opt/structurizr/structurizr.sh -workspace docs/_assets/structurizr/ -format plantuml
         shell: bash
