@@ -32,8 +32,12 @@ jobs:
           curl https://github.com/structurizr/cli/releases/latest -LJo structurizr.zip
           ls -l
           sudo apt-get install unzip
-          unzip structurizr.zip -d /opt/structurizr
         shell: bash
+      - name: Checkout structurizr-cli
+        uses: actions/upload-artifact@v3
+        with:
+          name: structurizr
+          path: structurizr.zip
       - name: Generate structurizr views
         run: /opt/structurizr/structurizr.sh -workspace docs/_assets/structurizr/ -format plantuml
         shell: bash
