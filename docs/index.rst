@@ -2,10 +2,10 @@
 Welcome
 =======
 
-This is a template repository to setup sphinx docs using Github Pages.
+This is a template repository to setup a documentation hosted via Github Pages and generated using Sphinx.
 
 .. Note:: Please note, as we deploy using a custom Github Action workflow, we do not need a `.nojekyll` file. 
-   Therefore, we also do not need the `sphinx.ext.github_pages`.
+   Therefore, we also do not need the ``sphinx.ext.github_pages``.
 
 This is |:100:| % only a proof of concept for the deployment workflow. 
 
