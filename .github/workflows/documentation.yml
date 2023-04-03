@@ -17,6 +17,7 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
@@ -29,13 +30,15 @@ jobs:
         shell: bash
       - name: Install structurizr
         run: |
-          curl -LJo structurizr.zip https://github.com/structurizr/cli/releases/download/v1.30.0/structurizr-cli-1.30.0.zip
-          ls -l
+          curl -LJo structurizr.zip $STRUCTURIZR_URL
           sudo apt-get install unzip
           unzip structurizr.zip -d /opt/structurizr
+        env:
+          STRUCTURIZR_VERSION: 1.30.0
+          STRUCTURIZR_URL: "https://github.com/structurizr/cli/releases/download/v$STRUCTURIZR_VERSION/structurizr-cli-$STRUCTURIZR_VERSION.zip"
         shell: bash
       - name: Generate structurizr views
-        run: /opt/structurizr/structurizr.sh -workspace docs/_assets/structurizr/ -format plantuml
+        run: /opt/structurizr/structurizr.sh export -workspace docs/_assets/structurizr/ -format plantuml
         shell: bash
       - name: Setup Python3
         uses: actions/setup-python@v4
