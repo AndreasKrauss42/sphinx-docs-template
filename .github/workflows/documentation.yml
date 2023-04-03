@@ -1,11 +1,10 @@
 name: documentation
 run-name: Build and deploy documentation
 on:
-  workflow_dispatch:
   push:
     branches:
       - main
-
+      
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
@@ -17,6 +16,7 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
@@ -26,6 +26,18 @@ jobs:
         shell: bash
       - name: Install plantuml
         run: sudo apt-get install plantuml -y
+        shell: bash
+      - name: Install structurizr
+        run: |
+          STRUCTURIZR_URL="https://github.com/structurizr/cli/releases/download/v$STRUCTURIZR_VERSION/structurizr-cli-$STRUCTURIZR_VERSION.zip"
+          curl -LJo structurizr.zip $STRUCTURIZR_URL
+          sudo apt-get install unzip
+          unzip structurizr.zip -d /opt/structurizr
+        env:
+          STRUCTURIZR_VERSION: 1.30.0
+        shell: bash
+      - name: Generate structurizr views
+        run: /opt/structurizr/structurizr.sh export -workspace docs/_assets/structurizr/ -format plantuml -output docs/_assets/structurizr/
         shell: bash
       - name: Setup Python3
         uses: actions/setup-python@v4
