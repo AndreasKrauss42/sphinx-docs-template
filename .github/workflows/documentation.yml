@@ -30,12 +30,12 @@ jobs:
         shell: bash
       - name: Install structurizr
         run: |
+          STRUCTURIZR_URL="https://github.com/structurizr/cli/releases/download/v$STRUCTURIZR_VERSION/structurizr-cli-$STRUCTURIZR_VERSION.zip"
           curl -LJo structurizr.zip $STRUCTURIZR_URL
           sudo apt-get install unzip
           unzip structurizr.zip -d /opt/structurizr
         env:
           STRUCTURIZR_VERSION: 1.30.0
-          STRUCTURIZR_URL: "https://github.com/structurizr/cli/releases/download/v$STRUCTURIZR_VERSION/structurizr-cli-$STRUCTURIZR_VERSION.zip"
         shell: bash
       - name: Generate structurizr views
         run: /opt/structurizr/structurizr.sh export -workspace docs/_assets/structurizr/ -format plantuml
