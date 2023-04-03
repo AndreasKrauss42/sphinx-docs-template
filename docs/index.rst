@@ -24,16 +24,16 @@ Last, but not least, checkout plantUml and mermaid support by checking out their
    :hidden:
    :caption: Contents:
    
-   plantuml/example.rst
-   mermaid/example.rst
+   development/getting_started.rst
+   sample_chapter/chapter.rst
+
+
 
 
 Indices and tables
 ==================
 
 * :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
 
 
 References
