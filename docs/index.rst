@@ -22,11 +22,26 @@ Last, but not least, checkout plantUml and mermaid support by checking out their
 .. toctree::
    :maxdepth: 1
    :hidden:
-   :caption: Contents:
+    
+   getting_started
+   about
    
-   development/getting_started.rst
-   sample_chapter/chapter.rst
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+   :caption: Resources
 
+   resources/technical_writing
+   resources/feature_set
+   resources/directory_structure
+
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+   :caption: Examples
+
+   sample_chapter/chapter
 
 
 

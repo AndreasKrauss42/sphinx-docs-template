@@ -16,6 +16,7 @@ release = '0.0.1'
 
 extensions = [
     'sphinx_rtd_theme',
+    'sphinx_design',
     'sphinx_copybutton',
     'sphinxcontrib.plantuml',
     'sphinxcontrib.mermaid',
