@@ -30,19 +30,24 @@ Python 3
 
 To check your python version, run following command:
 
-**Windows (PS/Cmd) | Linux (bash | sh)**
+.. tab-set::
 
-.. code-block:: bash
+   .. tab-item:: Windows
 
-   $ python --version
-   Python 3.x.x
+      .. code-block:: powershell
+
+         python --version
+
+   .. tab-item:: Linux
+
+      .. code-block:: bash
+
+         $ python --version
+         Python 3.x.x
+
 
 As shown in the above code block, the version of python should 3.6 or above.
 If you do not have Python3 installed please follow the native installation instructions from `Python.org <https://www.python.org/>`__.
-
-.. todo::
-   Check relevance of minor and patch version of Python3.
-
 
 PlantUML
 --------
@@ -51,32 +56,32 @@ PlantUML is a tool to build graphs - especially UML diagramms.
 The extension uses the native installation of plantuml on your operating system.
 Therefore, we recommend following installation methods:
 
-**Windows**
+.. tab-set::
+   .. tab-item:: Windows
 
-Please install plantuml using chocolatey:
+      Please install *plantuml* using `chocolatey <https://chocolatey.org/>`__:
+        
+      .. code-block:: powershell
 
-.. code-block::
+         choco install plantuml
 
-   choco install plantuml
+   .. tab-item:: Linux (Ubuntu)
 
-**Linux (Ubuntu)**
+      Please install *plantuml* via apt:
 
-Please install `plantuml` via apt:
+      .. code-block:: bash
 
-.. code-block::
-
-   $ sudo apt-get install plantuml
-
-
-.. important:: Python/Pip, PlantUML and Structurizr must be usable via the console.
+         $ sudo apt-get install plantuml
 
 
-Structurizr (Planned)
----------------------
+Structurizr
+-----------
 
 Download and install the `structurizr-cli <https://github.com/structurizr/cli>`__ from its repository.
 
-.. important:: Remember to add structurizr to your system's PATH variable.
+.. important:: 
+   Remember to add structurizr to your system's PATH variable.
+   Python/Pip, PlantUML and Structurizr must be usable via the console.
 
 
 Sphinx Extensions
@@ -86,13 +91,27 @@ This template uses several extensions, such as `sphinx_rtd_theme <https://sphinx
 To install them, follow the below steps.
 
 1. Go into your project folder's root.
-2. Start a command shell (``cmd`` / ``powershell`` on Windows | ``terminal`` on Linux)
-3. Run ``pip install -r docs/requirements.txt``
+2. Run following command in your respective command shell:
+
+.. tab-set::
+   .. tab-item:: Windows
+        
+      .. code-block:: powershell
+
+         pip install -r docs/requirements.txt
+
+   .. tab-item:: Linux (Ubuntu)
+
+      .. code-block:: bash
+
+         $ pip install -r docs/requirements.txt
+
 
 Start documenting
 =================
 
-*TBA* 
+In this section, it is shown how to do rapid prototyping using local builds.
+Furthermore, the folder structure for placing media files is explained shortly.
 
 Local Build
 -----------
@@ -103,25 +122,29 @@ Therefore, we tried to simplify local execution using this template as far as po
 
 To build the documentation locally, run following script:
 
-**Windows**
+.. tab-set::
+   .. tab-item:: Windows
+        
+      .. code-block:: powershell
 
-.. code-block::
-   
-   build_docs.bat
+         build_docs.bat      
 
-**Linux**
+   .. tab-item:: Linux (Ubuntu)
 
-.. code-block::
-   
-   build_docs.sh
+      Please install `plantuml` via apt:
 
-The script will build the documentation to the html format using Sphinx.
+      .. code-block:: bash
+
+         $ build_docs.sh
+
+At first, the script will process the structurizr model and generates the ``.puml`` file for each view.
+Then, Sphinx will transform the documentation to the html format.
 The generated source of the documentation is placed in the ``_build`` folder in the project root.
 
 Start a new chapter
 -------------------
 
-*TBA* How to add a new chapter?
+.. todo:: Describe shortly how to start a new chapter.
 
 A sample chapter can be found at :ref:`Sample Chapter`.
 
@@ -156,7 +179,7 @@ A PlantUML diagramm can be written in the source of this page:
 Or can be written in a separate file such as ``_assets/plantuml/example.uml``.
 Please note that the reference is a relative link.
 
-.. uml:: ../_assets/plantuml/example.plantuml
+.. uml:: _assets/plantuml/example.plantuml
    :scale: 80 %
    :align: center
 
@@ -204,13 +227,13 @@ The ``<chapter>`` section is optional.
 via Structurizr
 ^^^^^^^^^^^^^^^
 
+*This is a special case of adding graphs via PlantUML or Mermaid.*
 Structurizr defines a model which can be exported to several views (e.g., to PlantUML or mermaid).
 This concepts reduces redundancy between several graphs.
 Checkout the `structurizr DSL <https://github.com/structurizr/dsl>`__ to learn how to create models.
 
 As you may have noticed, structurizr requires an additional step while building the documentation.
 With supporting structurizr, we must generate the graphic resources for each view in the workspace.
-The required command is integrated into the ``build_docs.{bat|sh}`` script.
 
 To add the generated graphs simply reference them using a relative link, e.g.:
 
@@ -222,8 +245,11 @@ To add the generated graphs simply reference them using a relative link, e.g.:
       :width: 600
       :align: center
 
+.. Hint:: It is assumed that the targeted ``.rst`` file is in a child directory of ``docs``.
 
-.. uml:: ../_assets/structurizr/structurizr-ViewAlpha.puml
+The result looks as follows:
+
+.. uml:: _assets/structurizr/structurizr-ViewAlpha.puml
    :width: 600
    :align: center
 
