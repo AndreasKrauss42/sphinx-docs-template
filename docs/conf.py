@@ -1,3 +1,5 @@
+import json
+
 # Configuration file for the Sphinx documentation builder.
 #
 # For the full list of built-in configuration values, see the documentation:
@@ -51,7 +53,18 @@ plantuml_output_format = 'svg_img'
 
 # -- Options for mermaid Support ---------------------------------------------
 
-mermaid_params = ['--width', '600', '--backgroundColor', 'transparent']
+# setup default mermaid init params
+init = {}
+init["startOnLoad"] = True
+init["theme"] = "base"
+
+# Parse file and add it to init params
+f = open("./_assets/mermaid/theme.json")
+theme = json.load(f)
+init["themeVariables"] = theme["themeVariables"]
+
+mermaid_init_js = f"mermaid.initialize({json.dumps(init)});"
+mermaid_params = ['--width', '600']
 
 # -- Options for copybutton --------------------------------------------------
 

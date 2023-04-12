@@ -1,0 +1,18 @@
+{
+	"themeVariables": {
+		"darkMode": false, 
+		"background": "transparent",
+    	"primaryColor": "#aadafa",
+      	"primaryTextColor": "#404040",
+	  	"primaryBorderColor": "#2980b9",
+      	"lineColor": "#404040",
+      	"secondaryColor": "#ababab",
+		"secondaryBorderColor": "#9b9b9b",
+		"secondaryTextColor": "#404040",
+      	"tertiaryColor": "#bbbbbb",
+		"tertiaryBorderColor": "#9b9b9b",
+		"tertiaryTextColor": "#404040",
+		"noteBkgColor": "#feff9c",
+		"noteBorderColor": "#103394"
+	}
+}
