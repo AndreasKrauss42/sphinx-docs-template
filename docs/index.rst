@@ -34,7 +34,7 @@ Last, but not least, checkout plantUml and mermaid support by checking out their
    resources/technical_writing
    resources/feature_set
    resources/directory_structure
-
+   resources/theme
 
 .. toctree::
    :maxdepth: 1

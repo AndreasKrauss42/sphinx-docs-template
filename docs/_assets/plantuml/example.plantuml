@@ -1,4 +1,5 @@
 @startuml Simplified Deployment Pipeline
+!include puml-theme-rtd-light.puml
 
 [*] --> State1
 State1 : Step 1: Graphs generated

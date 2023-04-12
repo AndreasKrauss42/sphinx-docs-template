@@ -1,0 +1,69 @@
+@startuml
+actor actor
+actor/ "actor/"
+agent agent
+artifact artifact
+boundary boundary
+card card
+circle circle
+cloud cloud
+collections collections
+component component
+control control
+database database
+entity entity
+file file
+folder folder
+frame frame
+hexagon hexagon
+interface interface
+label label
+node node
+package package
+person person
+queue queue
+rectangle rectangle
+stack stack
+storage storage
+usecase usecase
+usecase/ "usecase/"
+@enduml
+
+@startuml
+!include ../../_assets/plantuml/puml-theme-rtd-light.puml
+
+actor foo1
+actor foo2
+foo1 <-0-> foo2
+foo1 <-(0)-> foo2
+ 
+(ac1) -le(0)-> left1
+ac1 -ri(0)-> right1
+ac1 .up(0).> up1
+ac1 ~up(0)~> up2
+ac1 -do(0)-> down1
+ac1 -do(0)-> down2
+ 
+actor1 -0)- actor2
+ 
+component comp1
+component comp2
+comp1 *-0)-+ comp2
+[comp3] <-->> [comp4]
+
+boundary b1
+control c1
+b1 -(0)- c1
+
+component comp1
+interface interf1
+comp1 #~~( interf1
+
+:mode1actor: -0)- fooa1
+:mode1actorl: -ri0)- foo1l
+
+[component1] 0)-(0-(0 [componentC]
+() component3 )-0-(0 "foo" [componentC]
+
+[aze1] #-->> [aze2]
+@enduml

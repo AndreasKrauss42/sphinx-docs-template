@@ -1,0 +1,630 @@
+''
+'' A blue-grey lightweight theme based on the ReadTheDocs style
+''
+'' Author: Andreas Krauss
+''
+
+!$THEME = "rtd-light"
+skinparam useBetaStyle true
+
+' Color palettes
+'' *_LIGHT = tint (lighter) of the main color of 80%
+''          where TINT is calculated by clr + (255-clr) * tint_factor
+'' *_DARK = shade (darker) of the main color of 80%
+''          and SHADE is calculated by clr * (1 - shade_factor)
+
+!$PRIMARY = "#2980b9"
+!$PRIMARY_LIGHT = "#5399c7"
+!$PRIMARY_DARK = "#206694"
+!$PRIMARY_TEXT = "#fcfcfc"
+!$SECONDARY = "#404040"
+!$SECONDARY_LIGHT = "#666666"
+!$SECONDARY_DARK = "#333333"
+!$SECONDARY_TEXT = "#fcfcfc"
+!$ACCENT = "#9b9b9b"
+!$SUCCESS = "#4CAF50"
+!$SUCCESS_LIGHT = "#6fbf73"
+!$SUCCESS_DARK = "#3c8c40"
+!$SUCCESS_TEXT = "#fcfcfc"
+!$INFO = "#1440b9"
+!$INFO_LIGHT = "#4366c7"
+!$INFO_DARK = "#103394"
+!$INFO_TEXT = "#fcfcfc"
+!$WARNING = "#ff9800"
+!$WARNING_LIGHT = "#ffac33"
+!$WARNING_DARK = "#cc7900"
+!$WARNING_TEXT = "#fcfcfc"
+!$DANGER = "#e51c23"
+!$DANGER_LIGHT = "#ea494f"
+!$DANGER_DARK = "#b7161c"
+!$DANGER_TEXT = "#fcfcfc"
+!$TEXT_PRIMARY = $SECONDARY
+!$TEXT_SECONDARY = $SECONDARY_LIGHT
+!$PRIMARY_HIGHLIGHT = "#0069d9"
+!$NOTE = "#feff9c"
+!$NOTE_TEXT = $TEXT_PRIMARY
+
+
+' Default color settings
+!$BGCOLOR = "transparent"
+
+
+!ifndef $FONT_NAME
+  !$FONT_NAME = "Verdana"
+!endif
+
+!ifndef $FONT_NAME_MONOSPACED
+  !$FONT_NAME_MONOSPACED = "Courier"
+!endif
+
+!procedure $success($msg)
+  <font color=$SUCCESS><b>$msg
+!endprocedure
+
+!procedure $failure($msg)
+  <font color=$DANGER><b>$msg
+!endprocedure
+
+!procedure $warning($msg)
+  <font color=$WARNING><b>$msg
+!endprocedure
+
+!procedure $primary_scheme()
+	FontColor $TEXT_PRIMARY
+	BorderColor $SECONDARY
+    BorderThickness 1
+	BackgroundColor #F2FCFE-#EEEEEE
+!endprocedure
+
+<style>
+    root {
+        BackgroundColor $BGCOLOR
+        FontColor $SECONDARY
+        FontName $FONT_NAME
+        HyperlinkColor $PRIMARY
+        LineColor $SECONDARY
+        LineThickness 1
+        Margin 5
+        Shadowing 0
+    }
+    node {
+        Padding 15
+        roundcorner 20
+        BackgroundColor $BGCOLOR
+    }
+    caption {
+        LineThickness 0
+    }
+    footer {
+        LineThickness 0
+    }
+    groupHeader {
+        BackgroundColor $SECONDARY
+        FontColor $INFO
+        FontStyle bold
+    }
+    header {
+        LineThickness 0
+    }
+    referenceHeader {
+        BackgroundColor $BGCOLOR
+        FontColor $SECONDARY_DARK
+        FontStyle bold
+    }
+    separator {
+        BackgroundColor $BGCOLOR
+        FontColor $SECONDARY
+        FontStyle bold
+    }
+    title {
+        FontSize 20
+        BorderRoundCorner            8
+        BorderThickness 	         1
+        BackgroundColor  $BGCOLOR
+        FontColor $PRIMARY
+        BorderColor $SECONDARY
+    }
+</style>
+''
+'' Global Default Values
+''
+skinparam defaultFontName       "Verdana"
+skinparam defaultFontSize       12
+skinparam dpi                   90
+skinparam shadowing             false
+skinparam roundcorner           4
+skinparam ParticipantPadding    40
+skinparam BoxPadding            40
+skinparam Padding               5 
+skinparam TitleFontColor	    $SECONDARY_DARK
+skinparam TitleFontSize	    	20
+skinparam TitleBorderThickness 	0
+skinparam ArrowColor            $SECONDARY_DARK
+skinparam stereotype {
+    ' class diagram letters
+    CBackgroundColor $SECONDARY_LIGHT
+    CBorderColor $SECONDARY_DARK
+    ABackgroundColor $SUCCESS_LIGHT
+    ABorderColor $SUCCESS_DARK
+    IBackgroundColor $DANGER_LIGHT
+    IBorderColor $DANGER_DARK
+    EBackgroundColor $WARNING_LIGHT
+    EBorderColor $WARNING_DARK
+    NBackgroundColor $INFO_LIGHT
+    NBorderColor $INFO_DARK
+}
+skinparam title {
+	FontColor	                 $PRIMARY
+	BorderColor	                 "transparent"
+	FontSize	    	         20
+	BorderThickness 	         0
+	BackgroundColor              $BGCOLOR
+}
+
+skinparam legend {
+	BackgroundColor $BGCOLOR
+	BorderColor $SECONDARY_DARK
+	FontColor $DARK
+}
+
+!startsub swimlane
+skinparam swimlane {
+	BorderColor $INFO
+	BorderThickness 2
+	TitleBackgroundColor  $SECONDARY_LIGHT-$SECONDARY
+	TitleFontColor $PRIMARY
+}
+!endsub
+
+!startsub note
+
+skinparam note {
+	BorderThickness 1
+	BackgroundColor $NOTE
+	BorderColor $INFO
+	FontColor $INFO
+}
+!endsub
+
+<style>
+nwdiagDiagram {
+        network {
+            $primary_scheme()    
+            LineColor $SECONDARY
+            LineThickness 1.0
+            FontColor $PRIMARY_DARK
+        }
+        server {
+            $primary_scheme()
+        }
+        arrow {
+            FontColor $SECONDARY_DARK
+            LineColor $SECONDARY_DARK
+        }
+        group {
+            BackGroundColor $ACCENT
+            LineColor $SECONDARY_LIGHT
+            LineThickness 2.0
+            Margin 5
+            Padding 5
+        }
+    }
+    ganttDiagram {
+        task {
+            $primary_scheme()
+            LineColor $PRIMARY
+            FontStyle bold
+            BackgroundColor $PRIMARY_LIGHT
+            Margin 5 5 5 5
+            Padding 5 5 5 5
+        }
+        note {
+            FontColor $INFO_DARK
+            LineColor $INFO_DARK
+            BackGroundColor $NOTE
+        }
+        separator {
+            LineColor $SECONDARY_DARK
+            BackGroundColor $BGCOLOR
+            FontColor $TEXT_PRIMARY
+            FontSize 12
+        }
+        milestone {
+            FontColor $INFO
+            FontSize 16
+            FontStyle italic
+            BackGroundColor $SECONDARY
+            LineColor $SECONDARY_DARK
+        }
+        timeline {
+            BackgroundColor $BGCOLOR
+            LineColor $SECONDARY
+            FontColor $SECONDARY_LIGHT
+        }
+        closed {
+            BackgroundColor $WARNING_DARK
+            FontColor $WARNING_TEXT
+        }
+        
+    }
+
+    start {
+        BackGroundColor $INFO_DARK
+        LineColor $INFO_DARK
+        LineThickness 2
+    }
+
+    end {
+        BackGroundColor $INFO_DARK
+        LineColor $INFO_DARK
+        LineThickness 2
+    }
+
+    jsonDiagram, yamlDiagram {
+        node {
+            LineColor $SECONDARY
+            FontColor $SECONDARY
+            FontSize 12
+            RoundCorner 5
+
+            separator {
+                LineThickness 0.5
+                LineColor $SECONDARY
+                LineStyle 0
+            }
+        }
+        arrow {
+            LineColor $INFO
+            LineThickness 2
+        }
+        highlight {
+            FontColor $PRIMARY_TEXT
+            BackGroundColor $PRIMARY
+        }
+    }
+
+    mindmapDiagram {
+        node {
+            Padding 12
+            Margin 3
+            HorizontalAlignment center
+            LineThickness 1.0
+            MaximumWidth 100
+        }
+
+        rootNode {
+            LineColor $PRIMARY
+            LineThickness 2.0
+        }
+
+        arrow {
+            LineStyle 0
+            LineThickness 1
+            LineColor $SECONDARY
+        }
+    }
+</style>
+
+
+!startsub activity
+skinparam activity {
+	$primary_scheme()
+	FontColor $TEXT_PRIMARY
+	BorderColor $SECONDARY
+	BackgroundColor $BGCOLOR
+	BarColor $SUCCESS
+	StartColor $INFO
+	EndColor $INFO
+	DiamondBackgroundColor $BGCOLOR
+  	DiamondBorderColor $PRIMARY
+	DiamondFontColor $TEXT_PRIMARY
+}
+!endsub
+
+!startsub participant
+
+skinparam participant {
+	$primary_scheme()
+	ParticipantBorderThickness 2
+}
+!endsub
+
+!startsub actor
+
+skinparam actor {
+	$primary_scheme()
+	FontColor $SECONDARY
+}
+!endsub
+
+!startsub arrow
+
+skinparam arrow {
+	Thickness 1
+	Color $SECONDARY
+	FontColor $TEXT_PRIMARY
+}
+!endsub
+
+!startsub sequence
+
+skinparam sequence {
+	BorderColor $SECONDARY
+	' For some reason sequence title font color does not pick up from global
+	TitleFontColor $PRIMARY
+	BackgroundColor $BGCOLOR
+	StartColor $PRIMARY
+	EndColor $PRIMARY
+	''
+	BoxBackgroundColor $BGCOLOR
+	BoxBorderColor $SECONDARY
+	BoxFontColor $SECONDARY_DARK
+	''
+	DelayFontColor $DANGER
+	''
+	LifeLineBorderColor $ACCENT
+	LifeLineBorderThickness 2
+	LifeLineBackgroundColor $BGCOLOR
+	''
+	GroupBackgroundColor #f
+    GroupBorderColor $SECONDARY
+	GroupFontColor $SECONDARY_DARK
+	GroupHeaderFontColor $INFO
+	''
+	DividerBackgroundColor $BGCOLOR
+    DividerBorderColor $SECONDARY
+    DividerBorderThickness 2
+    DividerFontColor $SECONDARY_DARK
+	''
+	ReferenceBackgroundColor $BGCOLOR
+	ReferenceBorderColor $SECONDARY
+	ReferenceFontColor $SECONDARY_DARK
+	ReferenceHeaderFontColor $INFO
+	''
+	StereotypeFontColor $PRIMARY_TEXT
+}
+!endsub
+
+!startsub partition
+
+skinparam partition {
+	BorderColor $PRIMARY
+	FontColor $PRIMARY
+	BackgroundColor $BGCOLOR
+}
+!endsub
+
+!startsub collections
+
+skinparam collections {
+	$primary_scheme()
+	' BackgroundColor $BGCOLOR
+	' BorderColor $PRIMARY
+}
+!endsub
+
+!startsub control
+
+skinparam control {
+	$primary_scheme()
+	' BackgroundColor  $BGCOLOR
+	' BorderColor $PRIMARY_DARK
+	' FontColor $DARK
+}
+!endsub
+
+!startsub entity
+
+skinparam entity {
+	$primary_scheme()
+	' BackgroundColor  $BGCOLOR
+	' BorderColor $PRIMARY_DARK
+	' FontColor $DARK
+}
+!endsub
+
+!startsub boundary
+
+skinparam boundary {
+	$primary_scheme()
+	' BackgroundColor  $BGCOLOR
+	BorderColor $SECONDARY
+	' FontColor $DARK
+}
+!endsub
+
+!startsub agent
+
+skinparam agent {
+    $primary_scheme()
+}
+!endsub
+
+
+!startsub artifact
+
+skinparam artifact {
+	$primary_scheme()
+}
+!endsub
+
+!startsub component
+
+skinparam component {
+	$primary_scheme()
+}
+!endsub
+
+!startsub interface
+
+skinparam interface {
+	$primary_scheme()
+}
+!endsub
+
+!startsub storage
+
+skinparam storage {
+	$primary_scheme()
+}
+!endsub
+
+!startsub node
+
+skinparam node {
+	$primary_scheme()
+}
+!endsub
+
+!startsub cloud
+
+skinparam cloud {
+    $primary_scheme()
+	BackgroundColor #F2FCFE-#EEEEEE
+}
+!endsub
+
+!startsub database
+
+skinparam database {
+	$primary_scheme()
+}
+!endsub
+
+!startsub hexagon
+
+skinparam hexagon {
+	$primary_scheme()
+}
+!endsub
+
+!startsub person
+
+skinparam person {
+	$primary_scheme()
+}
+!endsub
+
+!startsub class
+
+skinparam class {
+	BorderThickness 1
+    FontColor $SECONDARY_DARK
+    AttributeFontSize 12
+    HeaderBackgroundColor $PRIMARY_LIGHT
+    StereotypeFontColor $TEXT_PRIMARY
+}
+!endsub
+
+!startsub object
+
+skinparam object {
+	$primary_scheme()
+	' FontColor $SUCCESS
+	' BackgroundColor $BGCOLOR
+	' BorderColor $SECONDARY_DARK
+	StereotypeFontColor $DARK
+	BorderThickness 1
+	AttributeFontColor $SECONDARY_DARK
+	AttributeFontSize 11
+}
+!endsub
+
+!startsub usecase
+
+skinparam usecase {
+	$primary_scheme()
+	' BackgroundColor $BGCOLOR
+	' BorderColor $SECONDARY_DARK
+	BorderThickness 2
+	FontColor $TEXT_PRIMARY
+	StereotypeFontColor $PRIMARY
+}
+!endsub
+
+!startsub rectangle
+
+skinparam rectangle {
+	$primary_scheme()
+	' BackgroundColor $BGCOLOR
+	BorderColor $SECONDARY_DARK
+	BorderThickness 2
+	' FontColor $PRIMARY
+	StereotypeFontColor $SECONDARY_DARK
+}
+!endsub
+
+!startsub package
+
+skinparam package {
+	$primary_scheme()
+	BorderThickness 2
+}
+!endsub
+
+!startsub folder
+
+skinparam folder {
+	BackgroundColor $BGCOLOR
+  	BorderColor $WARNING
+	FontColor $WARNING
+	BorderThickness 2
+}
+!endsub
+
+!startsub frame
+
+skinparam frame {
+	BackgroundColor $BGCOLOR
+  	BorderColor $INFO
+	FontColor $INFO
+	BorderThickness 2
+}
+!endsub
+
+
+!startsub queue
+
+skinparam queue {
+	$primary_scheme()
+}
+!endsub
+
+!startsub card
+
+skinparam card {
+	BackgroundColor $BGCOLOR
+	BorderColor $INFO
+	FontColor $INFO_TEXT
+}
+!endsub
+
+!startsub file
+
+skinparam file {
+	$primary_scheme()
+}
+!endsub
+
+!startsub stack
+
+skinparam stack {
+	$primary_scheme()
+	BorderColor $SECONDARY
+	FontColor $SECONDARY_DARK
+}
+!endsub
+
+!startsub state
+
+skinparam State {
+	$primary_scheme()
+	StartColor $INFO
+	EndColor $INFO
+    BackgroundColor $PRIMARY_LIGHT
+	FontColor $SECONDARY_DARK
+    BorderColor $SECONDARY
+    FontSize 14
+    FontStyle bold
+}
+!endsub
