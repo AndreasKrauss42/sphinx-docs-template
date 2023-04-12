@@ -1,15 +1,4 @@
-@startgantt
-
-[Themenfindung] lasts 10 days
-[Themenfindung] is colored in CornflowerBlue
-[Anforderungsanalyse] lasts 10 days
-[Beginn Projektplanung] lasts 10 days
-[Beginn Projektplanung] starts at [Anforderungsanalyse]'s end
-[Aufgaben verteilen] happens at [Beginn Projektplanung]'s end
-[Setup assembly line] lasts 12 days
-[Setup assembly line] starts at [Beginn Projektplanung]'s end
-@endgantt
-
+' Example from https://plantuml.com/de/
 @startgantt
 !include ../../_assets/plantuml/puml-theme-rtd-light.puml
 
