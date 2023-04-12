@@ -1,5 +1,6 @@
+' Example from https://plantuml.com/de/
 @startuml
-  !include ../../_assets/plantuml/puml-theme-rtd-light.puml
+!include ../../_assets/plantuml/puml-theme-rtd-light.puml
 
 actor actor
 actor/ "actor/"
