@@ -173,6 +173,8 @@ A PlantUML diagramm can be written in the source of this page:
 .. uml::
    :align: center
 
+   !include _assets/plantuml/puml-theme-rtd-light.puml
+
    Alice -> Bob: Good Morning. How are you?
    Alice <- Bob: Hey, I'm fine thanks.
 
