@@ -28,9 +28,6 @@ jobs:
       - name: Install plantuml
         run: sudo apt-get install plantuml -y
         shell: bash
-      - name: Check plantuml version via plantumlc
-        run: plantumlc -version
-        shell: bash
       - name: Check plantuml version via plantuml
         run: plantuml -version
         shell: bash
