@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - fix-*
       
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -26,6 +27,15 @@ jobs:
         shell: bash
       - name: Install plantuml
         run: sudo apt-get install plantuml -y
+        shell: bash
+      - name: Check plantuml version via plantumlc
+        run: plantumlc -version
+        shell: bash
+      - name: Check plantuml version via plantuml
+        run: plantuml -version
+        shell: bash
+      - name: Check plantuml version via apt
+        run: apt list plantuml
         shell: bash
       - name: Install structurizr
         run: |
@@ -58,12 +68,13 @@ jobs:
           name: test-docs
           path: ${{ github.workspace }}/test-docs.tar.gz
       # Deploy Github Pages
-      - name: Setup Pages
-        uses: actions/configure-pages@v3
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: './_build'
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v1
+      #- name: Setup Pages
+      #  uses: actions/configure-pages@v3
+      #- name: Upload artifact
+      #  uses: actions/upload-pages-artifact@v1
+      #  with:
+      #    path: './_build'
+      #- name: Deploy to GitHub Pages
+      #  id: deployment
+      #  uses: actions/deploy-pages@v1
+        
