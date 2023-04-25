@@ -1,0 +1,39 @@
+name: documentation
+run-name: Build and deploy documentation
+on:
+  push:
+    branches:
+      - main
+      - docs-*
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    # make sure to have docker 18.09+ installed
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v3
+      - docker build
+      - docker run
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+
+  upload-artifact:
+    needs: test
+    runs-on: ubuntu-latest

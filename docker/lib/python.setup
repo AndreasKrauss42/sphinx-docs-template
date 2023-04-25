@@ -1,0 +1,6 @@
+
+RUN apk add --no-cache python3 py3-pip
+
+# Set Proxy for pip
+RUN python3 -m pip config --global set global.index-url https://vistrpndart1.vi.vector.int/artifactory/api/pypi/gen-pypi-pypi-remote-vis-01/simple
+RUN python3 -m pip config --global set global.cert /usr/local/share/ca-certificates/Vector_Root_2.0.crt
