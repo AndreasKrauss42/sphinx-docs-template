@@ -1,3 +1,3 @@
-#!/bin/sh -e
+#!/bin/ash -e
 # This is an alias for plantuml in the docker container
-java -jar /usr/local/bin/plantuml.jar "$@"
+java -Djava.awt.headless=true -jar /usr/local/bin/plantuml.jar "$@"

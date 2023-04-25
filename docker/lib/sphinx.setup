@@ -1,1 +1,2 @@
 RUN pip install -r ${WORKDIR}/requirements.txt
+RUN pip install sphinx-autobuild

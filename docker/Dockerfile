@@ -15,10 +15,10 @@ COPY docker/lib/structurizr.sh /usr/local/bin/structurizr
 # Ensure local packages are preferred over distribution packages
 ENV PATH=/usr/local/bin:$PATH
 
-ENV DOC_ROOT=/data/docs
+ENV DOC_ROOT=/data
 
 WORKDIR ${DOC_ROOT}
-
+COPY docker/lib/entrypoint.sh ./entrypoint.sh
 
 ### Tool Dependencies ##########################################################
 INCLUDE+ docker/lib/java.setup
@@ -27,6 +27,8 @@ INCLUDE+ docker/lib/structurizr.setup
 INCLUDE+ docker/lib/python.setup
 INCLUDE+ docker/lib/sphinx.setup
 ################################################################################
+
+ENTRYPOINT [ "data/entrypoint.sh" ]
 
 # Verify Installations:
 # RUN java --version && \
