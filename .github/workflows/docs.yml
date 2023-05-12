@@ -95,8 +95,7 @@ jobs:
   # test:
   #   needs: build
   #   runs-on: ubuntu-latest
-
-  # Deploy as GH Page
+  
   deploy-gh-page:
     needs: build-docs
     runs-on: ubuntu:latest
