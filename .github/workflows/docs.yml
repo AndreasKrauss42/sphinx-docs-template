@@ -74,7 +74,7 @@ jobs:
   build-docs:
     runs-on: ubuntu-latest
     container:
-      image: ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:${{ env.IMAGE_TAG }}
+      image: ghcr.io/andreaskrauss42/sphinx-docs-template:latest
     permissions:
       contents: read
       packages: read
