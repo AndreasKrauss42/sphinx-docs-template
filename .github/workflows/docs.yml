@@ -107,7 +107,7 @@ jobs:
 
   deploy-gh-page:
     needs: build-docs
-    runs-on: ubuntu:latest
+    runs-on: ubuntu-latest
     steps:
       -
         name: Get Artifact
