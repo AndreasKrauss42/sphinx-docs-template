@@ -31,8 +31,7 @@ env:
   REGISTRY: ghcr.io
   IMAGE_NAME: sphinx-gx
   IMAGE_TAG: latest
-  DOCS_INPUT_PATH: /sphinx-doc/docs
-  DOCS_OUTPUT_PATH: /sphinx-doc/_build
+
 jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
