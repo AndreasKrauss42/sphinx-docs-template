@@ -78,6 +78,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/andreaskrauss42/sphinx-docs-template:latest
+      options: -u=root
     permissions:
       contents: read
       packages: read
@@ -98,8 +99,8 @@ jobs:
         name: Build Docs with Sphinx
         shell: bash
         run: |
-          sudo structurizr export -workspace docs/assets/structurizr -format plantuml -output docs/assets/structurizr/ &&\
-          sudo sphinx-build -b html docs _build -a
+          structurizr export -workspace docs/assets/structurizr -format plantuml -output docs/assets/structurizr/ &&\
+          sphinx-build -b html docs _build -a
       -
         name: Archive html docs
         uses: actions/upload-artifact@v3
