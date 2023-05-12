@@ -9,12 +9,7 @@ name: Sphinx-GX
 
 run-name: Build sphinx image from Commit ${{ github.sha }}
 on:
-  push:
-    branches:
-      - main
-      - fix-*
-    paths:
-      - 'docker/**'
+  workflow_dispatch
 
 env:
   REGISTRY: ghcr.io
