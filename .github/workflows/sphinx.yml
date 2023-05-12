@@ -1,3 +1,5 @@
+name: Sphinx-GX
+
 # **What it does**:
 # If the docker setup changes, it rebuilds the image and pushes it to our registry.
 # **Why we have it**:
@@ -5,7 +7,6 @@
 # **Who does it impact**:
 # The docker image must be provided for the docs.yml workflow
 
-name: Build Docker image
 run-name: Build sphinx image from Commit ${{ github.sha }}
 on:
   push:
