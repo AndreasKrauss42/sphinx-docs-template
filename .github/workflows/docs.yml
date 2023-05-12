@@ -34,8 +34,8 @@ env:
   DOCS_INPUT_PATH: /sphinx-doc/docs
   DOCS_OUTPUT_PATH: /sphinx-doc/_build
 jobs:
-  build:
-    runs-on: [self-hosted, Linux]
+  build-docs:
+    runs-on: ubuntu-latest
     container:
       image: ${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}
     timeout-minutes: 15
@@ -67,7 +67,7 @@ jobs:
 
   # Deploy as GH Page
   deploy-gh-page:
-    needs: build
+    needs: build-docs
     runs-on: ubuntu:22-04
     steps:
       -
