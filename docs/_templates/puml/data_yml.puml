@@ -1,6 +1,6 @@
 ' Example from https://plantuml.com/de/
 @startyaml
-!include ../../_assets/plantuml/puml-theme-rtd-light.puml
+!include ../../assets/plantuml/puml-theme-rtd-light.puml
 
 #highlight "french-hens"
 #highlight "xmas-fifth-day" / "partridges"

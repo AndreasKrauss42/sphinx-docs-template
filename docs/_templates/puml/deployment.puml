@@ -31,7 +31,7 @@ usecase/ "usecase/"
 @enduml
 
 @startuml
-!include ../../_assets/plantuml/puml-theme-rtd-light.puml
+!include ../../assets/plantuml/puml-theme-rtd-light.puml
 
 actor foo1
 actor foo2

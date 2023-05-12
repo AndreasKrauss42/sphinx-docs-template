@@ -2,11 +2,6 @@
 
 FROM alpine:latest
 
-
-### VECTOR PROXY ###############################################################
-INCLUDE+ docker/lib/_proxy.setup
-################################################################################
-
 RUN apk update && apk upgrade
 
 COPY docs/requirements.txt .
@@ -15,27 +10,24 @@ COPY docker/lib/structurizr.sh /usr/local/bin/structurizr
 # Ensure local packages are preferred over distribution packages
 ENV PATH=/usr/local/bin:$PATH
 
-ENV DOC_ROOT=/data
+ENV DOC_ROOT=/sphinx-doc
 
 WORKDIR ${DOC_ROOT}
-COPY docker/lib/entrypoint.sh ./entrypoint.sh
 
 ### Tool Dependencies ##########################################################
-INCLUDE+ docker/lib/java.setup
-INCLUDE+ docker/lib/plantuml.setup
-INCLUDE+ docker/lib/structurizr.setup
+INCLUDE+ docker/lib/curl.setup
 INCLUDE+ docker/lib/python.setup
 INCLUDE+ docker/lib/sphinx.setup
+INCLUDE+ docker/lib/java.setup
+INCLUDE+ docker/lib/plantuml.setup
+INCLUDE+ docker/lib/watchmedo.setup
+INCLUDE+ docker/lib/structurizr.setup
 ################################################################################
 
-ENTRYPOINT [ "data/entrypoint.sh" ]
+# Expose port of webserver providing sphinx documentation
+EXPOSE 8000
+# build files are provided via bind mount.
 
-# Verify Installations:
-# RUN java --version && \
-#	python --version && \
-#	plantuml --version && \
-#	structurizr --version
 
-# todo expose _build/
-# use volume
-# RUN docker cp CONTAINER:./_build ./_build
+COPY docker/lib/entrypoint.sh /usr/local/bin/entrypoint.sh
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

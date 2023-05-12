@@ -1,1 +1,1 @@
-RUN apk add --no-cache openjdk8 fontconfig
+RUN apk add --no-cache openjdk17-jre fontconfig ttf-dejavu

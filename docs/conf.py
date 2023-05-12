@@ -59,7 +59,7 @@ init["startOnLoad"] = True
 init["theme"] = "base"
 
 # Parse file and add it to init params
-f = open("./_assets/mermaid/theme.json")
+f = open("./assets/mermaid/theme.json")
 theme = json.load(f)
 f.close()
 init["themeVariables"] = theme["themeVariables"]

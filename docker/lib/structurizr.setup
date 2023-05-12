@@ -1,9 +1,8 @@
 ARG STRUCTURIZR_VERSION="1.30.0"
 
-RUN apk --no-cache add zip
-RUN wget https://github.com/structurizr/cli/releases/download/v${STRUCTURIZR_VERSION}/structurizr-cli-${STRUCTURIZR_VERSION}.zip -O ~/structurizr.zip &&\
-	unzip -d ./structurizr/ ~/structurizr.zip &&\
+RUN apk --no-cache add zip bash
+RUN curl -L https://github.com/structurizr/cli/releases/download/v${STRUCTURIZR_VERSION}/structurizr-cli-${STRUCTURIZR_VERSION}.zip -o ~/structurizr.zip &&\
+	unzip -d /usr/local/lib/structurizr/ ~/structurizr.zip &&\
 	rm ~/structurizr.zip
 
-# make available on PATH 
-# ENV structurizr=/usr/local/bin/structurizr/structurizr.sh "$@"
+

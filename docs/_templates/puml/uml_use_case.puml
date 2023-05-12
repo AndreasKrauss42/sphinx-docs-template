@@ -1,6 +1,6 @@
 ' Example from https://plantuml.com/de/
 @startuml
-!include ../../_assets/plantuml/puml-theme-rtd-light.puml
+!include ../../assets/plantuml/puml-theme-rtd-light.puml
 
 actor actor
 actor/ "actor/"
@@ -33,7 +33,7 @@ usecase/ "usecase/"
 @enduml
 
 @startuml
-!include ../../_assets/plantuml/puml-theme-rtd-light.puml
+!include ../../assets/plantuml/puml-theme-rtd-light.puml
 actor foo1
 actor foo2
 foo1 <-0-> foo2

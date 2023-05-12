@@ -1,6 +1,6 @@
 ' Example from https://plantuml.com/de/
 @startgantt
-!include ../../_assets/plantuml/puml-theme-rtd-light.puml
+!include ../../assets/plantuml/puml-theme-rtd-light.puml
 
 Project starts 2020-09-01
 

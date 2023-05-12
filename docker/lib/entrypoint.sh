@@ -1,14 +1,24 @@
-#!/bin/sh
+#!/bin/sh -e
 ARGS="$@"
 echo "Arguments: $ARGS"
 
-# if args contains --watch, run watch mode
-# if echo "$ARGS" | grep -q -e '-h' -e '--watch'; then
-#     echo "Running watch mode..."
-# 	sphinx-autobuild docs _build
-# else
-#     echo "Starting Sphinx-Generator..."
-# 	sphinx-build -b html docs _build -a
-# fi
+CWD=$(pwd)
 
-sphinx-autobuild docs _build
+# if args contains --watch, run onetime mode
+if echo "$ARGS" | grep -q -e '-h' -e '--watch'; then
+    echo "Run in watch mode..."
+    structurizr export -workspace $CWD/docs/assets/structurizr/ -format plantuml -output $CWD/docs/assets/structurizr/
+    bash -c "watchmedo shell-command \
+                --patterns='*.dsl' \
+                --ignore-pattern='/sphinx-doc/_build/*' \
+                --recursive \
+                --command='structurizr export -workspace ${CWD}/docs/assets/structurizr -format plantuml -output ${CWD}/docs/assets/structurizr/' \
+                --debug-force-polling \
+                /sphinx-doc/docs/assets/structurizr &"
+	sphinx-autobuild -a -b html --host 0.0.0.0 --port 8000 docs _build/html
+else
+    echo "Generate views of C4 model..."
+    structurizr export -workspace $CWD/docs/assets/structurizr -format plantuml -output $CWD/docs/assets/structurizr/
+    echo "Start Sphinx-Generator..."
+	sphinx-build -b html docs _build -a
+fi
