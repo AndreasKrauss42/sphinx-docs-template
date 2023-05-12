@@ -42,10 +42,19 @@ jobs:
     timeout-minutes: 15
     steps:
       -
+        uses: dorny/paths-filter@v2
+        id: changes
+        with:
+          filters: |
+            docker:
+              - 'docker/**'
+      -
         name: Checkout Repository
+        if: steps.changes.outputs.docker == 'true'
         uses: actions/checkout@v3
       -
         name: Log in to the Container registry
+        if: steps.changes.outputs.docker == 'true'
         uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
         with:
           # todo update login information
@@ -54,6 +63,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       -
         name: Build and push Docker image
+        if: steps.changes.outputs.docker == 'true'
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
         with:
           context: .
@@ -62,10 +72,9 @@ jobs:
           tags: ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:${{ env.IMAGE_TAG }}
           labels: ${{ steps.meta.outputs.labels }}
   build-docs:
-    needs: build-and-push-image
     runs-on: ubuntu-latest
     container:
-      image: ${REGISTRY}/${REPOSITORY}:${IMAGE_TAG}
+      image: ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:${{ env.IMAGE_TAG }}
     permissions:
       contents: read
       packages: read
@@ -95,7 +104,7 @@ jobs:
   # test:
   #   needs: build
   #   runs-on: ubuntu-latest
-  
+
   deploy-gh-page:
     needs: build-docs
     runs-on: ubuntu:latest
