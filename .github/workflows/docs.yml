@@ -98,7 +98,7 @@ jobs:
         name: Build Docs with Sphinx
         shell: bash
         run: |
-          structurizr export -workspace $CWD/docs/assets/structurizr -format plantuml -output $CWD/docs/assets/structurizr/ &&\
+          structurizr export -workspace docs/assets/structurizr -format plantuml -output docs/assets/structurizr/ &&\
           sphinx-build -b html docs _build -a
       -
         name: Archive html docs
