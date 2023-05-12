@@ -29,6 +29,7 @@ permissions:
 
 env:
   REGISTRY: ghcr.io
+  REPOSITORY: ${{ github.repository }}
   IMAGE_NAME: sphinx-gx
   IMAGE_TAG: latest
 
@@ -56,7 +57,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          images: ${{ env.REGISTRY }}/${{ env.REPOSITORY }}
       -
         name: Build and push Docker image
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
@@ -70,7 +71,10 @@ jobs:
     needs: build-and-push-image
     runs-on: ubuntu-latest
     container:
-      image: ${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}
+      image: ${REGISTRY}/${REPOSITORY}:${IMAGE_TAG}
+    permissions:
+      contents: read
+      packages: read
     timeout-minutes: 15
     environment:
       name: github-pages
