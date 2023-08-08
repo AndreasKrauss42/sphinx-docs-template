@@ -14,7 +14,7 @@ PlantUMl by default builds its graphs using the rose skin. However, we provide a
 
 To apply this theme on a plantUML graph add following line after the ``@start<diagram>`` tag:
 
-``!include <relative-path-to>/_assets/plantuml/puml-theme-rtd-light.puml``
+``!include <relative-path-to>/assets/plantuml/puml-theme-rtd-light.puml``
 
 Please remember to adapt the *relative path* in this code fragment.
 

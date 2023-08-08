@@ -1,0 +1,7 @@
+ARG PUML_VERSION="1.2023.6"
+
+RUN apk add graphviz
+RUN curl -L https://github.com/plantuml/plantuml/releases/download/v${PUML_VERSION}/plantuml.jar -o /usr/local/lib/plantuml.jar
+
+# make available on PATH
+# ENV plantuml=java -jar /usr/local/lib/plantuml.jar "$@"

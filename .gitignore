@@ -16,4 +16,4 @@ _build
 *.vsix
 
 # Structurizr
-docs/_assets/structurizr/*.puml
+docs/assets/structurizr/*.puml

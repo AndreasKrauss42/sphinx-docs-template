@@ -1,9 +1,11 @@
 name: documentation
 run-name: Build and deploy documentation
 on:
-  push:
-    branches:
-      - main
+  # push:
+  #   branches:
+  #     - main
+  #     - fix-*
+  workflow_dispatch
       
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -12,7 +14,8 @@ permissions:
   id-token: write
 
 jobs:
-  deploy-docs:
+  
+  build-app:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -27,6 +30,12 @@ jobs:
       - name: Install plantuml
         run: sudo apt-get install plantuml -y
         shell: bash
+      - name: Check plantuml version via plantuml
+        run: plantuml -version
+        shell: bash
+      - name: Check plantuml version via apt
+        run: apt list plantuml
+        shell: bash
       - name: Install structurizr
         run: |
           STRUCTURIZR_URL="https://github.com/structurizr/cli/releases/download/v$STRUCTURIZR_VERSION/structurizr-cli-$STRUCTURIZR_VERSION.zip"
@@ -37,7 +46,7 @@ jobs:
           STRUCTURIZR_VERSION: 1.30.0
         shell: bash
       - name: Generate structurizr views
-        run: /opt/structurizr/structurizr.sh export -workspace docs/_assets/structurizr/ -format plantuml -output docs/_assets/structurizr/
+        run: /opt/structurizr/structurizr.sh export -workspace docs/assets/structurizr/ -format plantuml -output docs/assets/structurizr/
         shell: bash
       - name: Setup Python3
         uses: actions/setup-python@v4
@@ -58,12 +67,13 @@ jobs:
           name: test-docs
           path: ${{ github.workspace }}/test-docs.tar.gz
       # Deploy Github Pages
-      - name: Setup Pages
-        uses: actions/configure-pages@v3
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: './_build'
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v1
+      #- name: Setup Pages
+      #  uses: actions/configure-pages@v3
+      #- name: Upload artifact
+      #  uses: actions/upload-pages-artifact@v1
+      #  with:
+      #    path: './_build'
+      #- name: Deploy to GitHub Pages
+      #  id: deployment
+      #  uses: actions/deploy-pages@v1
+        

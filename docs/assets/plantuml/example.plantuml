@@ -1,14 +1,17 @@
 @startuml Simplified Deployment Pipeline
 !include puml-theme-rtd-light.puml
 
-[*] --> State1
-State1 : Step 1: Graphs generated
+[*] -> State0
+State0 : Generate graph sources
 
-State1 -> State2
+State0 -down-> State1
+State1 : Graphs generated
+
+State1 --> State2
 State2 : Sphinx documentation built
 
-State2 -> State3
+State2 --> State3
 State3 : Documentation deployed
-State3 --> [*]
+State3 -> [*]
 
 @enduml
