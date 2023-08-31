@@ -11,6 +11,9 @@ name: Documentation
 
 run-name: Build and deploy documentation from ${{ github.sha }}
 on:
+  pull_request: 
+    branches:
+      - main
   push:
     branches:
       - main
