@@ -87,7 +87,7 @@ jobs:
       packages: read
     timeout-minutes: 15
     environment:
-      name: github-pages
+      # name: github-pages
       # url: ${{ steps.deployment.outputs.page_url }}
     # make sure to have docker 18.09+ installed
     steps:
