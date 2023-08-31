@@ -2,17 +2,12 @@
 
 FROM alpine:latest
 
+# TODO REMOVE Proxy after resolution
+INCLUDE+ docker/lib/_proxy.setup
+
 RUN apk update && apk upgrade
 
 COPY docs/requirements.txt .
-COPY docker/lib/plantuml.sh /usr/local/bin/plantuml
-COPY docker/lib/structurizr.sh /usr/local/bin/structurizr
-# Ensure local packages are preferred over distribution packages
-ENV PATH=/usr/local/bin:$PATH
-
-ENV DOC_ROOT=/sphinx-doc
-
-WORKDIR ${DOC_ROOT}
 
 ### Tool Dependencies ##########################################################
 INCLUDE+ docker/lib/curl.setup
@@ -23,6 +18,12 @@ INCLUDE+ docker/lib/plantuml.setup
 INCLUDE+ docker/lib/watchmedo.setup
 INCLUDE+ docker/lib/structurizr.setup
 ################################################################################
+
+COPY docker/lib/plantuml.sh /usr/local/bin/plantuml
+COPY docker/lib/structurizr.sh /usr/local/bin/structurizr
+# Ensure local packages are preferred over distribution packages
+ENV PATH=/usr/local/bin:$PATH
+
 
 # Expose port of webserver providing sphinx documentation
 EXPOSE 8000
