@@ -118,23 +118,23 @@ jobs:
   #   needs: build
   #   runs-on: ubuntu-latest
 
-  deploy-gh-page:
-    needs: build-docs
-    runs-on: ubuntu-latest
-    steps:
-      -
-        name: Get Artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: STDoc
-      -
-        name: Setup Pages
-        uses: actions/configure-pages@v3
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: './_build'
-      -
-        name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v1
+  # deploy-gh-page:
+  #   needs: build-docs
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     -
+  #       name: Get Artifact
+  #       uses: actions/download-artifact@v3
+  #       with:
+  #         name: STDoc
+  #     -
+  #       name: Setup Pages
+  #       uses: actions/configure-pages@v3
+  #     - name: Upload artifact
+  #       uses: actions/upload-pages-artifact@v1
+  #       with:
+  #         path: './_build'
+  #     -
+  #       name: Deploy to GitHub Pages
+  #       id: deployment
+  #       uses: actions/deploy-pages@v1
