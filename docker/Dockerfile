@@ -1,13 +1,13 @@
 # syntax = edrevo/dockerfile-plus
 
-FROM alpine:latest
+FROM alpine:3.18
 
 # TODO REMOVE Proxy after resolution
-INCLUDE+ docker/lib/_proxy.setup
+# INCLUDE+ docker/lib/_proxy.setup
 
 RUN apk update && apk upgrade
 
-COPY docs/requirements.txt .
+COPY docker/lib/requirements.txt .
 
 ### Tool Dependencies ##########################################################
 INCLUDE+ docker/lib/curl.setup
@@ -19,8 +19,8 @@ INCLUDE+ docker/lib/watchmedo.setup
 INCLUDE+ docker/lib/structurizr.setup
 ################################################################################
 
-COPY docker/lib/plantuml.sh /usr/local/bin/plantuml
-COPY docker/lib/structurizr.sh /usr/local/bin/structurizr
+COPY --chown=+x docker/lib/plantuml.sh /usr/local/bin/plantuml
+COPY --chown=+x docker/lib/structurizr.sh /usr/local/bin/structurizr
 # Ensure local packages are preferred over distribution packages
 ENV PATH=/usr/local/bin:$PATH
 
