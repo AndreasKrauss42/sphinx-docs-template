@@ -33,7 +33,7 @@ permissions:
 
 jobs:
   sphinx-build-container:
-    sphinx: "[Sphinx] Prepare Container"
+    name: "[Sphinx] Prepare Container"
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -72,7 +72,7 @@ jobs:
     container:
       image: ghcr.io/andreaskrauss42/sphinx-docs-template:latest
       options: -u=root
-      volume:
+      volumes:
         - ${{github.workspace}}/docs:docs/src
         - ${{github.workspace}}/_build:docs/_build
     permissions:
