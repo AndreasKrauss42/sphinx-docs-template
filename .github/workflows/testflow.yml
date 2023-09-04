@@ -64,10 +64,14 @@ jobs:
           context: .
           file: ${{github.workspace}}/docker/Dockerfile
           push: true
-          tags: ghcr.io/sphinx-docs-template:latest
+          tags: ghcr.io/andreaskrauss42/sphinx-docs-template:latest
           labels: ${{ steps.meta.outputs.labels }}
-  docs-build-and-deploy:
+  docs-build:
     name: "[Docs] Build & Deploy"
+    permissions:
+      contents: read
+      packages: read
+    needs: sphinx-build-container
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/andreaskrauss42/sphinx-docs-template:latest
@@ -75,9 +79,6 @@ jobs:
       volumes:
         - ${{github.workspace}}/docs:docs/src
         - ${{github.workspace}}/_build:docs/_build
-    permissions:
-      contents: read
-      packages: read
     timeout-minutes: 15
     environment:
       name: github-pages
