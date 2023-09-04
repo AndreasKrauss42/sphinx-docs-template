@@ -78,7 +78,7 @@ jobs:
       volumes:
         - ${{github.workspace}}/docs:/docs/src
         - ${{github.workspace}}/_build:/docs/_build
-      timeout-minutes: 15
+    timeout-minutes: 15
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
