@@ -64,7 +64,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: ghcr.io/sphinx-gx:latest
           labels: ${{ steps.meta.outputs.labels }}
   docs-build-and-deploy:
     name: "[Docs] Build & Deploy"
