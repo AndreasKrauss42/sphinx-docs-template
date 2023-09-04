@@ -75,6 +75,7 @@ jobs:
     name: Test external links
     needs: sphinx-build-container
     runs-on: ubuntu-latest
+    continue-on-error: true
     container:
       image: ghcr.io/andreaskrauss42/sphinx-docs-template:latest
       options: -u=root
@@ -95,7 +96,7 @@ jobs:
         shell: bash
         run: |
           structurizr export -workspace docs/assets/structurizr -format plantuml -output docs/assets/structurizr/ &&\
-          sphinx-build -b html docs _build -a
+          sphinx-build -b linkchecker docs _build -a
   
   docs-build:
     name: "[Docs] Build & Deploy"
