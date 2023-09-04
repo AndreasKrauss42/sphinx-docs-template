@@ -136,7 +136,6 @@ jobs:
           # before excluding mermaid files, make sure to have build them using the mermaid cli to svgs
   
   deploy-gh-page:
-    if: ${{ false }}
     needs: docs-build
     runs-on: ubuntu-latest
     environment:
@@ -147,6 +146,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: STDoc
+          path: ${{ github.workspace }}/_build
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact
