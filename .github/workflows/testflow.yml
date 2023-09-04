@@ -96,7 +96,7 @@ jobs:
         shell: bash
         run: |
           structurizr export -workspace docs/assets/structurizr -format plantuml -output docs/assets/structurizr/ &&\
-          sphinx-build -b linkchecker docs _build -a
+          sphinx-build -b linkcheck docs _build -a
   
   docs-build:
     name: "[Docs] Build & Deploy"
