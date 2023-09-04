@@ -96,6 +96,7 @@ jobs:
         run: |
           structurizr export -workspace docs/assets/structurizr -format plantuml -output docs/assets/structurizr/ &&\
           sphinx-build -b html docs _build -a
+  
   docs-build:
     name: "[Docs] Build & Deploy"
     permissions:
@@ -135,6 +136,7 @@ jobs:
           # before excluding mermaid files, make sure to have build them using the mermaid cli to svgs
   
   deploy-gh-page:
+    if: ${{ false }}
     needs: docs-build
     runs-on: ubuntu-latest
     environment:
