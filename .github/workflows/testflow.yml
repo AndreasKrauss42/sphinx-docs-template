@@ -133,7 +133,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: STDoc
-          path: ${GITHUB_WORKSPACE}/_build
+          path: ${{ github.workspace }}/_build
           # optionally exclude all puml, structurizr dsl and mermaid files
           # before excluding mermaid files, make sure to have build them using the mermaid cli to svgs
   
@@ -152,7 +152,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: ${GITHUB_WORKSPACE}/_build
+          path: ${{ github.workspace }}/_build
       -
         name: Deploy to GitHub Pages
         id: deployment
