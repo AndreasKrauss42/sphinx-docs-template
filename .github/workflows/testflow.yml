@@ -77,8 +77,8 @@ jobs:
       image: ghcr.io/andreaskrauss42/sphinx-docs-template:latest
       options: -u=root
       volumes:
-        - ${{github.workspace}}/docs:docs/src
-        - ${{github.workspace}}/_build:docs/_build
+        - ${{github.workspace}}/docs:/docs/src
+        - ${{github.workspace}}/_build:/docs/_build
     timeout-minutes: 15
     environment:
       name: github-pages
