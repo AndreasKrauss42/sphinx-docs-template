@@ -22,7 +22,7 @@ on:
 env:
   REGISTRY: ghcr.io
   # abbrev. for sphinx-graphical-actions
-  IMAGE_NAME: sphinx-gx
+  IMAGE_NAME: sphinx-docs-template
   IMAGE_TAG: latest
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
@@ -62,9 +62,9 @@ jobs:
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
         with:
           context: .
-          file: ./Dockerfile
+          file: ${{github.workspace}}/docker/Dockerfile
           push: true
-          tags: ghcr.io/sphinx-gx:latest
+          tags: ghcr.io/sphinx-docs-template:latest
           labels: ${{ steps.meta.outputs.labels }}
   docs-build-and-deploy:
     name: "[Docs] Build & Deploy"
