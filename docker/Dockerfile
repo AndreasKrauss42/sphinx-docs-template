@@ -19,8 +19,8 @@ INCLUDE+ docker/lib/watchmedo.setup
 INCLUDE+ docker/lib/structurizr.setup
 ################################################################################
 
-COPY --chmod=+x docker/lib/plantuml.sh /usr/local/bin/plantuml
-COPY --chmod=+x docker/lib/structurizr.sh /usr/local/bin/structurizr
+COPY --chmod=774 docker/lib/plantuml.sh /usr/local/bin/plantuml
+COPY --chmod=774 docker/lib/structurizr.sh /usr/local/bin/structurizr
 # Ensure local packages are preferred over distribution packages
 ENV PATH=/usr/local/bin:$PATH
 
