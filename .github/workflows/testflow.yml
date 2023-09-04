@@ -92,7 +92,7 @@ jobs:
         name: Checkout Repository
         uses: actions/checkout@v3
       - 
-        name: Build Docs with Sphinx
+        name: Check Links
         shell: bash
         run: |
           structurizr export -workspace docs/assets/structurizr -format plantuml -output docs/assets/structurizr/ &&\
