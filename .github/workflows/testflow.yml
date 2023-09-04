@@ -138,7 +138,7 @@ jobs:
           # before excluding mermaid files, make sure to have build them using the mermaid cli to svgs
   
   deploy-gh-page:
-    needs: build-docs
+    needs: docs-build
     runs-on: ubuntu-latest
     steps:
       -
