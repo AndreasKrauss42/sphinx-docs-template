@@ -7,7 +7,7 @@ name: Sphinx-GX
 # **Who does it impact**:
 # The docker image must be provided for the docs.yml workflow
 
-run-name: Build sphinx image from Commit ${{ github.sha }}
+run-name: "[Sphinx] Prepare image from Commit ${{ github.sha }}"
 on:
   workflow_dispatch
 
@@ -25,10 +25,6 @@ jobs:
       packages: write
     timeout-minutes: 15
     steps:
-      -
-        name: Break
-        shell: sh
-        run: exit 1
       -
         name: Checkout Repository
         uses: actions/checkout@v3

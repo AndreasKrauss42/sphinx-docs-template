@@ -1,0 +1,140 @@
+name: Testflow
+
+# **What it does**:
+# Provides all tools to run our Sphinx Documentation Template.
+# Further can host the documentation on a webserver.
+# **Why we have it**:
+# To build the documentation having the right version of tools.
+# Especially, the plantuml version is important for adding the
+# custom RTD theme.
+# **Who does it impact**: None
+
+run-name: "Create Documentation from Commit ${{ github.sha }}"
+on:
+  pull_request: 
+    branches:
+      - main
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  # abbrev. for sphinx-graphical-actions
+  IMAGE_NAME: sphinx-gx
+  IMAGE_TAG: latest
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  sphinx-build-container:
+    sphinx: "[Sphinx] Prepare Container"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    timeout-minutes: 15
+    steps:
+      -
+        name: Checkout Repository
+        uses: actions/checkout@v3
+      -
+        name: Log in to the Container registry
+        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
+        with:
+          # todo update login information
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      -
+        name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+      -
+        name: Build and push Docker image
+        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+  docs-build-and-deploy:
+    name: "[Docs] Build & Deploy"
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/andreaskrauss42/sphinx-docs-template:latest
+      options: -u=root
+      volume:
+        - ${{github.workspace}}/docs:docs/src
+        - ${{github.workspace}}/_build:docs/_build
+    permissions:
+      contents: read
+      packages: read
+    timeout-minutes: 15
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    # make sure to have docker 18.09+ installed
+    steps:
+      -
+        name: Install bash
+        shell: sh
+        run: apk add bash
+      - name: Check User
+        shell: bash
+        run: echo $USER
+      - name: Check Structurizr Script
+        shell: bash
+        run: ls -l /usr/local/bin | grep -iE 'structurizr|plantuml'
+      -
+        name: Checkout Repository
+        uses: actions/checkout@v3
+      - 
+        name: Build Docs with Sphinx
+        shell: bash
+        run: |
+          structurizr export -workspace docs/assets/structurizr -format plantuml -output docs/assets/structurizr/ &&\
+          sphinx-build -b html docs _build -a
+      -
+        name: Archive html docs
+        uses: actions/upload-artifact@v3
+        with:
+          name: STDoc
+          path: ${GITHUB_WORKSPACE}/_build
+          # optionally exclude all puml, structurizr dsl and mermaid files
+          # before excluding mermaid files, make sure to have build them using the mermaid cli to svgs
+  
+    # Execute Linkchecker
+    # test:
+    #   needs: build
+    #   runs-on: ubuntu-latest
+  
+    # deploy-gh-page:
+    #   needs: build-docs
+    #   runs-on: ubuntu-latest
+    #   steps:
+    #     -
+    #       name: Get Artifact
+    #       uses: actions/download-artifact@v3
+    #       with:
+    #         name: STDoc
+    #     -
+    #       name: Setup Pages
+    #       uses: actions/configure-pages@v3
+    #     - name: Upload artifact
+    #       uses: actions/upload-pages-artifact@v1
+    #       with:
+    #         path: './_build'
+    #     -
+    #       name: Deploy to GitHub Pages
+    #       id: deployment
+    #       uses: actions/deploy-pages@v1
+  

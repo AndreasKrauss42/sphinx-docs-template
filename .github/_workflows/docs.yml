@@ -9,7 +9,7 @@ name: Documentation
 # custom RTD theme.
 # **Who does it impact**: None
 
-run-name: Build and deploy documentation from ${{ github.sha }}
+run-name: "[Docs] Build and Deploy from Commit ${{ github.sha }}"
 on:
   pull_request: 
     branches:
@@ -37,7 +37,7 @@ env:
   IMAGE_TAG: latest
 
 jobs:
-  build-and-push-image:
+  :
     runs-on: ubuntu-latest
     permissions:
       contents: read
