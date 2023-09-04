@@ -91,7 +91,7 @@ jobs:
         run: apk add bash
       - name: Check User
         shell: bash
-        run: echo $USER
+        run: whoami
       - name: Check Structurizr Script
         shell: bash
         run: ls -l /usr/local/bin | grep -iE 'structurizr|plantuml'
