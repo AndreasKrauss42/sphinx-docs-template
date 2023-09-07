@@ -64,6 +64,7 @@ theme = json.load(f)
 f.close()
 init["themeVariables"] = theme["themeVariables"]
 
+mermaid_version = "10.2.0"
 mermaid_init_js = f"mermaid.initialize({json.dumps(init)});"
 mermaid_params = ['--width', '600']
 
