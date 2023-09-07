@@ -1,0 +1,15 @@
+# This is only required for Vector Internal use
+
+RUN echo 'Setup Proxy'
+
+# Install vector certificate
+ADD https://artifactory.vi.vector.int/artifactory/adp-globaltools-generic-prod/Vector_Root_2.0.crt \
+    https://artifactory.vi.vector.int/artifactory/adp-globaltools-generic-prod/Vector_Issuing_2.0.crt \
+    /usr/local/share/ca-certificates/
+
+# Set Artifactory mirrors
+RUN cat /usr/local/share/ca-certificates/* >> /etc/ssl/cert.pem \
+ && sed 's;dl-cdn.alpinelinux.org/alpine/;artifactory.vi.vector.int/artifactory/alpine-remote/;' -i /etc/apk/repositories
+
+RUN apk --no-cache add ca-certificates
+RUN update-ca-certificates

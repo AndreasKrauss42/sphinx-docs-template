@@ -2,6 +2,9 @@
 
 FROM alpine:3.18
 
+RUN addgroup -g 1000 sphinx \
+    && adduser -u 1000 -G sphinx -s /bin/sh -D sphinx
+
 # TODO REMOVE Proxy after resolution
 # INCLUDE+ docker/lib/_proxy.setup
 
@@ -19,16 +22,20 @@ INCLUDE+ docker/lib/watchmedo.setup
 INCLUDE+ docker/lib/structurizr.setup
 ################################################################################
 
-COPY --chmod=774 docker/lib/plantuml.sh /usr/local/bin/plantuml
-COPY --chmod=774 docker/lib/structurizr.sh /usr/local/bin/structurizr
+USER sphinx
+RUN /bin/bash -c 'mkdir -p ~/docs/{src,_build} && \
+	chown -R sphinx:sphinx ~/docs'  
+
+WORKDIR /home/sphinx/docs
+
+COPY --chown=sphinx:sphinx --chmod=774 docker/lib/plantuml.sh /usr/local/bin/plantuml
+COPY --chown=sphinx:sphinx --chmod=774 docker/lib/structurizr.sh /usr/local/bin/structurizr
 # Ensure local packages are preferred over distribution packages
 ENV PATH=/usr/local/bin:$PATH
 
-
-# Expose port of webserver providing sphinx documentation
+# Default port for webserver
 EXPOSE 8000
-# build files are provided via bind mount.
-
 
 COPY docker/lib/entrypoint.sh /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+
