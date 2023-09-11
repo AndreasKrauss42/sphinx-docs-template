@@ -26,3 +26,12 @@ A complete documentation structure can look as follows:
 
 
 Within the container the following directory structure is used:
+
+.. code-block:: text
+
+   /usr/local/bin
+   ├   structurizr.sh
+   └  plantuml.sh
+   /home/sphinx/docs
+   ├   src
+   └  _build
