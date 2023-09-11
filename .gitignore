@@ -19,4 +19,4 @@ _build
 docs/assets/structurizr/*.puml
 
 # Avoid proxy settings for CI builds
-docs/lib/_proxy.setup
+docker/lib/_proxy.setup
