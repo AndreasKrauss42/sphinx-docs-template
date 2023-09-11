@@ -1,9 +1,9 @@
 #! /bin/bash
 echo "Start building documentation using Sphinx"
 PROJECT_ROOT="$(if [[ "$OSTYPE" == "msys" ]]; then cygpath -w `pwd`; else pwd; fi)"
-CONTAINER_ROOT=/home/sphinx/docs
+CONTAINER_ROOT=/home/sphinx
 HOST_SRC=docs
-CONT_SRC=src
+CONTAINER_SRC=src
 BUILD=_build
 mkdir -p ${PROJECT_ROOT}/${BUILD}
 docker start sphinx-gxc ||\

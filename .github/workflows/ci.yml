@@ -1,4 +1,4 @@
-name: Testflow
+name: Documentation
 
 # **What it does**:
 # Provides all tools to run our Sphinx Documentation Template.
@@ -80,8 +80,8 @@ jobs:
       image: ghcr.io/andreaskrauss42/sphinx-docs-template:latest
       options: -u=root
       volumes:
-        - ${{github.workspace}}/docs:/docs/src
-        - ${{github.workspace}}/_build:/docs/_build
+        - ${{github.workspace}}/docs:/home/sphinx/src
+        - ${{github.workspace}}/_build:/home/sphinx/_build
     timeout-minutes: 15
     steps:
       -
@@ -109,8 +109,8 @@ jobs:
       image: ghcr.io/andreaskrauss42/sphinx-docs-template:latest
       options: -u=root
       volumes:
-        - ${{github.workspace}}/docs:/docs/src
-        - ${{github.workspace}}/_build:/docs/_build
+        - ${{github.workspace}}/docs:/home/sphinx/src
+        - ${{github.workspace}}/_build:/home/sphinx/_build
     timeout-minutes: 15
     # make sure to have docker 18.09+ installed
     steps:
@@ -137,7 +137,9 @@ jobs:
           # before excluding mermaid files, make sure to have build them using the mermaid cli to svgs
   
   deploy-gh-page:
-    needs: docs-build
+    needs: 
+      - docs-build
+      - test
     runs-on: ubuntu-latest
     environment:
       name: github-pages

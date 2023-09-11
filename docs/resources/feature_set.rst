@@ -9,7 +9,7 @@ This framework provides support for several tools and components.
 Theme
 -----
 
-- `ReadTheDocs Theme <https://github.com/readthedocs/sphinx_rtd_theme>´__: Layout and design
+- `ReadTheDocs Theme <https://github.com/readthedocs/sphinx_rtd_theme>`__: Layout and Design
 
 Tools
 -----
@@ -21,7 +21,7 @@ Tools
 Components
 ----------
 
-- `copy-button <https://sphinx-copybutton.readthedocs.io/en/latest/>`__`: enables to copy commands from a codebox with one click
+- `copy-button <https://sphinx-copybutton.readthedocs.io/en/latest/>`__: enables to copy commands from a codebox with one click
 - `sphinx-design <https://sphinx-design.readthedocs.io/en/rtd-theme/>`__: adds expansion panels, grids, cards, and similar components
 - `emoji <https://sphinxemojicodes.readthedocs.io/en/stable/>`__: adds emoji support, and we all know how urgent we need emojis
 

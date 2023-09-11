@@ -5,9 +5,6 @@ FROM alpine:3.18
 RUN addgroup -g 1000 sphinx \
     && adduser -u 1000 -G sphinx -s /bin/sh -D sphinx
 
-# TODO REMOVE Proxy after resolution
-# INCLUDE+ docker/lib/_proxy.setup
-
 RUN apk update && apk upgrade
 
 COPY docker/lib/requirements.txt .
@@ -23,10 +20,10 @@ INCLUDE+ docker/lib/structurizr.setup
 ################################################################################
 
 USER sphinx
-RUN /bin/bash -c 'mkdir -p ~/docs/{src,_build} && \
-	chown -R sphinx:sphinx ~/docs'  
+RUN /bin/bash -c 'mkdir -p ~/{src,_build} && \
+	chown -R sphinx:sphinx ~'
 
-WORKDIR /home/sphinx/docs
+WORKDIR /home/sphinx
 
 COPY --chown=sphinx:sphinx --chmod=774 docker/lib/plantuml.sh /usr/local/bin/plantuml
 COPY --chown=sphinx:sphinx --chmod=774 docker/lib/structurizr.sh /usr/local/bin/structurizr
