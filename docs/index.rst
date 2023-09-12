@@ -43,14 +43,6 @@ Last, but not least, checkout plantUml and mermaid support by checking out their
 
    sample_chapter/chapter
 
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-
-
 References
 ==========
 

@@ -9,17 +9,21 @@ name: Documentation
 # custom RTD theme.
 # **Who does it impact**: None
 
-run-name: Build and deploy documentation from ${{ github.sha }}
+run-name: "Create Documentation from Commit ${{ github.sha }}"
 on:
+  pull_request: 
+    branches:
+      - main
   push:
     branches:
       - main
-      - fix-*
-  workflow_run:
-    workflows: [Build Docker image]
-    types: [completed]
   workflow_dispatch:
 
+env:
+  REGISTRY: ghcr.io
+  # abbrev. for sphinx-graphical-actions
+  IMAGE_NAME: sphinx-docs-template
+  IMAGE_TAG: latest
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -27,37 +31,23 @@ permissions:
   pages: write
   id-token: write
 
-env:
-  REGISTRY: ghcr.io
-  REPOSITORY: ${{ github.repository }}
-  IMAGE_NAME: sphinx-gx
-  IMAGE_TAG: latest
-
 jobs:
-  build-and-push-image:
+  sphinx-build-container:
+    name: "[Sphinx] Prepare Container"
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
     timeout-minutes: 15
+    concurrency:
+      group: ${{ github.ref }}
+      cancel-in-progress: true
     steps:
-      - 
-        shell: bash
-        run: sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get install git
-      -
-        uses: dorny/paths-filter@v2
-        id: changes
-        with:
-          filters: |
-            docker:
-              - 'docker/**'
       -
         name: Checkout Repository
-        if: steps.changes.outputs.docker == 'true'
         uses: actions/checkout@v3
       -
         name: Log in to the Container registry
-        if: steps.changes.outputs.docker == 'true'
         uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
         with:
           # todo update login information
@@ -65,27 +55,63 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       -
+        name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+      -
         name: Build and push Docker image
-        if: steps.changes.outputs.docker == 'true'
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
         with:
           context: .
-          file: ./docker/Dockerfile
+          file: ${{github.workspace}}/docker/Dockerfile
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:${{ env.IMAGE_TAG }}
+          tags: ghcr.io/andreaskrauss42/sphinx-docs-template:latest
           labels: ${{ steps.meta.outputs.labels }}
-  build-docs:
+
+  # Execute Linkchecker
+  test:
+    name: Test external links
+    needs: sphinx-build-container
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    container:
+      image: ghcr.io/andreaskrauss42/sphinx-docs-template:latest
+      options: -u=root
+      volumes:
+        - ${{github.workspace}}/docs:/home/sphinx/src
+        - ${{github.workspace}}/_build:/home/sphinx/_build
+    timeout-minutes: 15
+    steps:
+      -
+        name: Install bash
+        shell: sh
+        run: apk add bash
+      -
+        name: Checkout Repository
+        uses: actions/checkout@v3
+      - 
+        name: Check Links
+        shell: bash
+        run: |
+          structurizr export -workspace docs/assets/structurizr -format plantuml -output docs/assets/structurizr/ &&\
+          sphinx-build -b linkcheck docs _build -a
+  
+  docs-build:
+    name: "[Docs] Build & Deploy"
+    permissions:
+      contents: read
+      packages: read
+    needs: sphinx-build-container
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/andreaskrauss42/sphinx-docs-template:latest
       options: -u=root
-    permissions:
-      contents: read
-      packages: read
+      volumes:
+        - ${{github.workspace}}/docs:/home/sphinx/src
+        - ${{github.workspace}}/_build:/home/sphinx/_build
     timeout-minutes: 15
-    environment:
-      name: github-pages
-      # url: ${{ steps.deployment.outputs.page_url }}
     # make sure to have docker 18.09+ installed
     steps:
       -
@@ -102,36 +128,36 @@ jobs:
           structurizr export -workspace docs/assets/structurizr -format plantuml -output docs/assets/structurizr/ &&\
           sphinx-build -b html docs _build -a
       -
-        name: Archive html docs
+        name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: STDoc
-          path: ${GITHUB_WORKSPACE}/_build
+          path: ${{ github.workspace }}/_build
           # optionally exclude all puml, structurizr dsl and mermaid files
           # before excluding mermaid files, make sure to have build them using the mermaid cli to svgs
-
-  # Execute Linkchecker
-  # test:
-  #   needs: build
-  #   runs-on: ubuntu-latest
-
+  
   deploy-gh-page:
-    needs: build-docs
+    needs: 
+      - docs-build
+      - test
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      -
-        name: Get Artifact
+      - name: Get Artifact
         uses: actions/download-artifact@v3
         with:
           name: STDoc
-      -
-        name: Setup Pages
+          path: ${{ github.workspace }}/_build
+      - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: './_build'
+          path: ${{ github.workspace }}/_build
       -
         name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
+
